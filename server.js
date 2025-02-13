@@ -5,11 +5,11 @@ const { Server } = require("socket.io");
 const { createServer } = require("node:http");
 
 const app = express();
-const port = 9000;
+const port = process.env.PORT || 9000;
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://chatapparchit.netlify.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -25,7 +25,9 @@ const students = [
 const messages = [];
 
 app.use(bodyParser.json());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({ origin: "https://chatapparchit.netlify.app", credentials: true })
+);
 
 // 📢 SOCKET.IO CONNECTION
 io.on("connection", (socket) => {
