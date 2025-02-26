@@ -28,24 +28,14 @@ app.use(bodyParser.json());
 app.use(
   cors({ origin: "https://chatapparchit.netlify.app", credentials: true })
 );
-
-// 📢 SOCKET.IO CONNECTION
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
-  // Send existing messages to the newly connected client
   socket.emit("previousMessages", messages);
 
-  // Handle new messages
   socket.on("sendMessage", (message) => {
-    // console.log("Message received:", message);
-    // console.log("✅ Received message from client:", message); // 🔍 Debugging
-
-    // Save message
     messages.push(message);
 
-    // console.log("📢 Broadcasting message to all clients:", message); // 🔍 Debugging
-    // Send only once to all clients
     io.emit("receiveMessage", message);
   });
 
@@ -54,7 +44,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// 📢 API ROUTES
 app.get("/api/students", (req, res) => {
   res.json(students);
 });
