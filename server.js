@@ -53,5 +53,5 @@ app.get("/api/messages", (req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(`✅ Server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
